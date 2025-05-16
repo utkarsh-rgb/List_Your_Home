@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listing Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-top: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: white;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        strong {
+            color: #4CAF50;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            margin-right: 15px;
+            padding: 10px 15px;
+            text-decoration: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #45a049;
+        }
+
+        form {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #f44336;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #e53935;
+        }
+
+        .container {
+            width: 100%;
+            padding: 0 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Listing Details</h1>
+    <ul>
+        <li><strong>Title:</strong> <%= listing.title %></li>
+        <li><strong>Description:</strong> <%= listing.description %></li>
+        <li><strong>Price:</strong> &#8377; <%= listing.price.toLocaleString("en-IN") %></li>
+        <li><strong>Location:</strong> <%= listing.location %></li>
+        <li><strong>Country:</strong> <%= listing.country %></li>
+    </ul>
+    <a href="/listings">Back to Listings</a>
+    <a href="/listings/<%=listing._id%>/edit"> Edit this listing</a>
+    <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
+        <button>Delete this listing</button>
+    </form>
+</div>
+</body>
+</html>

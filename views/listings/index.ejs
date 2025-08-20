@@ -3,12 +3,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
-  body { 
-    font-family: 'Poppins', sans-serif; 
-    background: #f8f9fa; 
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #f8f9fa;
+    color: #3b3b3b;
   }
 
-  /* Filters */
+  /* Filters container */
   #filters {
     display: flex;
     flex-wrap: nowrap;
@@ -20,7 +21,8 @@
     gap: 0.5rem;
   }
   #filters::-webkit-scrollbar { display: none; }
-  
+
+  /* Individual filter button */
   .filter {
     flex: 0 0 auto;
     text-align: center;
@@ -31,15 +33,16 @@
     opacity: 0.7;
     background: transparent;
     border: 1px solid transparent;
+    user-select: none;
   }
-  
+
   .filter:hover {
     opacity: 1;
     transform: translateY(-2px);
     background: rgba(254, 66, 77, 0.1);
     border-color: rgba(254, 66, 77, 0.2);
   }
-  
+
   .filter.active {
     opacity: 1;
     background: #fe424d;
@@ -47,20 +50,21 @@
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(254, 66, 77, 0.3);
   }
-  
+
   .filter i {
     font-size: 1.3rem;
     margin-bottom: 0.4rem;
     display: block;
   }
-  
-  .filter p { 
-    font-size: 0.8rem; 
-    margin: 0; 
+
+  .filter p {
+    font-size: 0.8rem;
+    margin: 0;
     white-space: nowrap;
     font-weight: 500;
   }
 
+  /* Tax toggle */
   .tax-toggle {
     margin-left: auto;
     padding-left: 2rem;
@@ -68,18 +72,18 @@
     display: flex;
     align-items: center;
   }
-  
+
   .form-switch .form-check-input {
     width: 3rem;
     height: 1.5rem;
   }
-  
+
   .form-switch .form-check-input:checked {
     background-color: #fe424d;
     border-color: #fe424d;
   }
 
-  /* Mobile Filter Button */
+  /* Mobile filter button */
   .filter-btn {
     background: #fe424d;
     border: none;
@@ -89,12 +93,13 @@
     font-weight: 500;
     transition: all 0.3s ease;
   }
+
   .filter-btn:hover {
     background: #e53e3e;
     transform: translateY(-1px);
   }
 
-  /* Listings */
+  /* Listing card */
   .listing-card {
     border: none;
     margin: 0;
@@ -105,52 +110,52 @@
     position: relative;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   }
-  
+
   .listing-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 25px rgba(0,0,0,0.15);
   }
-  
-  .listing-link { 
-    text-decoration: none; 
-    color: inherit; 
+
+  .listing-link {
+    text-decoration: none;
+    color: inherit;
   }
-  
-  .card-body { 
-    padding: 1.2rem; 
+
+  .card-body {
+    padding: 1.2rem;
   }
-  
+
   .card-img-top {
     object-fit: cover;
     width: 100%;
     height: 200px;
     transition: transform 0.3s ease;
   }
-  
-  .listing-card:hover .card-img-top { 
-    transform: scale(1.03); 
+
+  .listing-card:hover .card-img-top {
+    transform: scale(1.03);
   }
 
   .card-text {
     line-height: 1.5;
   }
-  
+
   .card-text b {
     font-size: 1rem;
     color: #2d3748;
     display: block;
     margin-bottom: 0.3rem;
   }
-  
+
   .price {
     font-size: 0.95rem;
     font-weight: 600;
     color: #fe424d;
   }
 
-  .tax-info { 
-    display: none; 
-    color: #718096; 
+  .tax-info {
+    display: none;
+    color: #718096;
     font-size: 0.8rem;
     font-weight: 400;
   }
@@ -170,10 +175,11 @@
     box-shadow: 0 2px 8px rgba(255, 71, 87, 0.4);
   }
 
+
   /* Responsive */
   @media (min-width: 768px) {
-    #filters { 
-      flex-wrap: wrap; 
+    #filters {
+      flex-wrap: wrap;
       overflow-x: visible;
       gap: 0.8rem;
     }
@@ -181,13 +187,13 @@
       height: 180px;
     }
   }
-  
+
   @media (min-width: 992px) {
     .card-img-top {
       height: 160px;
     }
   }
-  
+
   @media (max-width: 767px) {
     .tax-toggle {
       margin-left: 0;
@@ -197,15 +203,15 @@
       border-top: 1px solid #e9ecef;
       padding-top: 1rem;
     }
-    
+
     .filter {
       padding: 0.6rem 0.8rem;
     }
-    
+
     .filter i {
       font-size: 1.2rem;
     }
-    
+
     .filter p {
       font-size: 0.75rem;
     }
@@ -288,10 +294,10 @@
     }
   });
 
-  // Filter active toggle
+  // Filter active toggle (single selection)
   document.querySelectorAll(".filter").forEach(f => {
     f.addEventListener("click", () => {
-      // Remove active from all filters first (single selection)
+      // Remove active from all filters
       document.querySelectorAll(".filter").forEach(filter => filter.classList.remove("active"));
       // Add active to clicked filter
       f.classList.add("active");

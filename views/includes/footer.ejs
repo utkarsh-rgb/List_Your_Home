@@ -1,14 +1,199 @@
-<footer>
-    <div class="f-info">
-        <div class="f-info-social">
-            <i class="fa-brands fa-square-facebook"></i>
-            <i class="fa-brands fa-square-instagram"></i>
-            <i class="fa-brands fa-square-x-twitter"></i>
-        </div>
-        <div class="f-info-brand"> &copy; Hotel Listings </div>
-        <div class="f-info-links">
-            <a href ="/privacy"> Privacy Policy </a>
-            <a href ="/terms "> Terms and Conditions </a>
-        </div>
+<style>
+.footer {
+  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+  color: #fff;
+  padding: 2rem 0;
+  margin-top: 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+}
+
+.footer-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Social Icons */
+.social-icons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-icon:hover {
+  color: #fff;
+  transform: translateY(-3px) scale(1.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.social-icon.facebook:hover {
+  background: linear-gradient(135deg, #1877f2, #42a5f5);
+  border-color: #1877f2;
+}
+
+.social-icon.instagram:hover {
+  background: linear-gradient(135deg, #e91e63, #f06292, #ff9800);
+  border-color: #e91e63;
+}
+
+.social-icon.twitter:hover {
+  background: linear-gradient(135deg, #1da1f2, #42a5f5);
+  border-color: #1da1f2;
+}
+
+/* Brand */
+.brand {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  opacity: 0.9;
+  text-align: center;
+}
+
+.brand i {
+  color: #fe424d;
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+/* Footer Links */
+.footer-links {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.footer-link {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.footer-link:hover {
+  color: #fff;
+  background: rgba(254, 66, 77, 0.2);
+  transform: translateY(-1px);
+}
+
+.footer-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: #fe424d;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.footer-link:hover::after {
+  width: 80%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .footer {
+    padding: 1.5rem 0;
+    text-align: center;
+  }
+  
+  .footer-content > div {
+    margin-bottom: 1.5rem;
+  }
+  
+  .footer-content > div:last-child {
+    margin-bottom: 0;
+  }
+  
+  .footer-links {
+    gap: 1rem;
+  }
+  
+  .social-icons {
+    justify-content: center;
+  }
+}
+
+@media (min-width: 769px) {
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+  }
+  
+  .social-icons {
+    justify-content: flex-start;
+  }
+  
+  .footer-links {
+    justify-content: flex-end;
+  }
+}
+</style>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      
+      <!-- Social Icons -->
+      <div class="social-icons">
+        <a href="#" class="social-icon facebook">
+          <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <a href="#" class="social-icon instagram">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="#" class="social-icon twitter">
+          <i class="fa-brands fa-x-twitter"></i>
+        </a>
+      </div>
+
+      <!-- Brand -->
+      <div class="brand">
+        <i class="fa-regular fa-compass"></i>
+        &copy; 2024 TravelHub
+      </div>
+
+      <!-- Footer Links -->
+      <div class="footer-links">
+        <a href="/privacy" class="footer-link">Privacy Policy</a>
+        <a href="/terms" class="footer-link">Terms & Conditions</a>
+      </div>
+
     </div>
+  </div>
 </footer>

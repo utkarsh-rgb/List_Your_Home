@@ -1,143 +1,311 @@
 <% layout("layouts/boilerplate.ejs") %>
-<body>
-  <style>
-    #filters {
-      display: flex;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      padding: 1rem 0;
-      border-bottom: 1px solid #ccc;
-      scrollbar-width: none;
-    }
-    #filters::-webkit-scrollbar {
-      display: none;
-    }
-    .filter {
-      flex: 0 0 auto;
-      text-align: center;
-      margin-right: 1.5rem;
-      opacity: 0.7;
-      transition: all 0.3s ease-in-out;
-    }
-    .filter:hover {
-      opacity: 1;
-      cursor: pointer;
-      transform: scale(1.05);
-    }
-    .filter i {
-      font-size: 1.2rem;
-      margin-bottom: 0.2rem;
-      display: block;
-    }
-    .filter p {
-      font-size: 0.8rem;
-      margin: 0;
-    }
-    .tax-toggle {
-      margin-left: auto;
-      margin-top: 1rem;
-    }
 
-    /* Listing card styles */
-    .listing-card {
-      border: none;
-      margin: 1rem 0;
-      transition: all 0.3s ease-in-out;
-    }
-    .listing-card:hover {
-      transform: scale(1.02);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    .listing-link {
-      text-decoration: none;
-      color: inherit;
-    }
-    .card-body {
-      padding: 1rem;
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  body { 
+    font-family: 'Poppins', sans-serif; 
+    background: #f8f9fa; 
+  }
+
+  /* Filters */
+  #filters {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid #e9ecef;
+    scrollbar-width: none;
+    position: relative;
+    gap: 0.5rem;
+  }
+  #filters::-webkit-scrollbar { display: none; }
+  
+  .filter {
+    flex: 0 0 auto;
+    text-align: center;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    opacity: 0.7;
+    background: transparent;
+    border: 1px solid transparent;
+  }
+  
+  .filter:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+    background: rgba(254, 66, 77, 0.1);
+    border-color: rgba(254, 66, 77, 0.2);
+  }
+  
+  .filter.active {
+    opacity: 1;
+    background: #fe424d;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(254, 66, 77, 0.3);
+  }
+  
+  .filter i {
+    font-size: 1.3rem;
+    margin-bottom: 0.4rem;
+    display: block;
+  }
+  
+  .filter p { 
+    font-size: 0.8rem; 
+    margin: 0; 
+    white-space: nowrap;
+    font-weight: 500;
+  }
+
+  .tax-toggle {
+    margin-left: auto;
+    padding-left: 2rem;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+  }
+  
+  .form-switch .form-check-input {
+    width: 3rem;
+    height: 1.5rem;
+  }
+  
+  .form-switch .form-check-input:checked {
+    background-color: #fe424d;
+    border-color: #fe424d;
+  }
+
+  /* Mobile Filter Button */
+  .filter-btn {
+    background: #fe424d;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    padding: 0.6rem 1.2rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  .filter-btn:hover {
+    background: #e53e3e;
+    transform: translateY(-1px);
+  }
+
+  /* Listings */
+  .listing-card {
+    border: none;
+    margin: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background: #fff;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  
+  .listing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  }
+  
+  .listing-link { 
+    text-decoration: none; 
+    color: inherit; 
+  }
+  
+  .card-body { 
+    padding: 1.2rem; 
+  }
+  
+  .card-img-top {
+    object-fit: cover;
+    width: 100%;
+    height: 200px;
+    transition: transform 0.3s ease;
+  }
+  
+  .listing-card:hover .card-img-top { 
+    transform: scale(1.03); 
+  }
+
+  .card-text {
+    line-height: 1.5;
+  }
+  
+  .card-text b {
+    font-size: 1rem;
+    color: #2d3748;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  
+  .price {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fe424d;
+  }
+
+  .tax-info { 
+    display: none; 
+    color: #718096; 
+    font-size: 0.8rem;
+    font-weight: 400;
+  }
+
+  /* Badge */
+  .badge-trending {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: linear-gradient(135deg, #ff6b6b, #ff4757);
+    color: #fff;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    z-index: 1;
+    box-shadow: 0 2px 8px rgba(255, 71, 87, 0.4);
+  }
+
+  /* Responsive */
+  @media (min-width: 768px) {
+    #filters { 
+      flex-wrap: wrap; 
+      overflow-x: visible;
+      gap: 0.8rem;
     }
     .card-img-top {
-      border-radius: 12px;
-      object-fit: cover;
+      height: 180px;
     }
-
-    @media (min-width: 768px) {
-      #filters {
-        overflow-x: visible;
-        flex-wrap: wrap;
-      }
-    }
-    .tax-info {
-    display: none;
-    }
-  </style>
-
+  }
   
-  <button class="btn btn-outline-dark mb-3 d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#filterCollapse" aria-expanded="false" aria-controls="filterCollapse">
+  @media (min-width: 992px) {
+    .card-img-top {
+      height: 160px;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .tax-toggle {
+      margin-left: 0;
+      padding-left: 0;
+      margin-top: 1rem;
+      justify-content: center;
+      border-top: 1px solid #e9ecef;
+      padding-top: 1rem;
+    }
+    
+    .filter {
+      padding: 0.6rem 0.8rem;
+    }
+    
+    .filter i {
+      font-size: 1.2rem;
+    }
+    
+    .filter p {
+      font-size: 0.75rem;
+    }
+  }
+</style>
+
+<div class="container-fluid px-3">
+
+  <!-- Mobile Filter Button -->
+  <button class="filter-btn mb-3 d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#filterCollapse">
     <i class="fa-solid fa-filter me-2"></i>Filters
   </button>
 
   <div class="collapse d-md-block" id="filterCollapse">
-    <div id="filters" class="px-2">
-      <div class="filter"><i class="fa-solid fa-fire"></i><p>Trending</p></div>
-      <div class="filter"><i class="fa-solid fa-bed"></i><p>Rooms</p></div>
-      <div class="filter"><i class="fa-solid fa-house"></i><p>Entire Place</p></div>
-      <div class="filter"><i class="fa-solid fa-mug-saucer"></i><p>Breakfast</p></div>
-      <div class="filter"><i class="fa-solid fa-person-swimming"></i><p>Pool</p></div>
-      <div class="filter"><i class="fa-solid fa-dog"></i><p>Pet Friendly</p></div>
-      <div class="filter"><i class="fa-solid fa-wifi"></i><p>Wi-Fi</p></div>
-      <div class="filter"><i class="fa-solid fa-car"></i><p>Parking</p></div>
-      <div class="filter"><i class="fa-solid fa-snowflake"></i><p>AC</p></div>
-      <div class="filter"><i class="fa-solid fa-kitchen-set"></i><p>Kitchen</p></div>
-      <div class="filter"><i class="fa-solid fa-tv"></i><p>TV</p></div>
-      <div class="filter"><i class="fa-solid fa-spa"></i><p>Spa</p></div>
-      <div class="filter"><i class="fa-solid fa-dumbbell"></i><p>Gym</p></div>
-      <div class="filter"><i class="fa-solid fa-mountain-sun"></i><p>Mountain View</p></div>
+    <div id="filters" class="d-flex align-items-start">
+      <% const filters = [
+        {icon: "fa-fire", label: "Trending"},
+        {icon: "fa-bed", label: "Rooms"},
+        {icon: "fa-house", label: "Entire Place"},
+        {icon: "fa-mug-saucer", label: "Breakfast"},
+        {icon: "fa-person-swimming", label: "Pool"},
+        {icon: "fa-dog", label: "Pet Friendly"},
+        {icon: "fa-wifi", label: "Wi-Fi"},
+        {icon: "fa-car", label: "Parking"},
+        {icon: "fa-snowflake", label: "AC"},
+        {icon: "fa-kitchen-set", label: "Kitchen"},
+        {icon: "fa-mountain-sun", label: "Mountain View"},
+      ]; %>
 
-      <div class="tax-toggle d-flex align-items-center">
-        <div class="form-check-reverse form-switch">
-          <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
-          <label class="form-check-label ms-2" for="switchCheckDefault">Total with taxes</label>
+      <% filters.forEach(f => { %>
+        <div class="filter">
+          <i class="fa-solid <%= f.icon %>"></i>
+          <p><%= f.label %></p>
+        </div>
+      <% }) %>
+
+      <div class="tax-toggle">
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id="switchCheckDefault">
+          <label class="form-check-label ms-2 fw-500" for="switchCheckDefault">
+            Total with taxes
+          </label>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Listings -->
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 mt-3">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4 mt-2">
     <% for(let listing of alllistings) { %>
-    <div class="col">
-      <a href="/listings/<%= listing._id %>" class="listing-link">
-        <div class="card listing-card">
-          <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.title %> image" style="height: 20rem;">
-          <div class="card-body">
-            <p class="card-text">
-              <b><%= listing.title %></b><br/>
-              ₹ <%= listing.price.toLocaleString("en-IN") %> /night
-              <i class="tax-info"> &nbsp; &nbsp;+18% GST</i>
-            </p>
+      <div class="col">
+        <a href="/listings/<%= listing._id %>" class="listing-link">
+          <div class="card listing-card h-100">
+            <% if(listing.trending){ %>
+              <div class="badge-trending">🔥 Trending</div>
+            <% } %>
+            <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.title %>" loading="lazy">
+            <div class="card-body">
+              <div class="card-text">
+                <b><%= listing.title %></b>
+                <span class="price">
+                  ₹ <%= listing.price.toLocaleString("en-IN") %> /night
+                  <small class="tax-info">&nbsp;+18% GST</small>
+                </span>
+              </div>
+            </div>
           </div>
-        </div>
-      </a>
-    </div>
+        </a>
+      </div>
     <% } %>
   </div>
+</div>
 
-  <!-- Script -->
-  <script>
-    document.getElementById("switchCheckDefault")
-    .addEventListener("click", () => {
-      let taxinfo = document.getElementsByClassName("tax-info");
-      for(info of taxinfo){
-        if(info.style.display != "inline"){
-        info.style.display ="inline"
-      }
-      else{
-        info.style.display ="none"
-      }
+<script>
+  // Toggle GST display
+  document.getElementById("switchCheckDefault").addEventListener("change", (e) => {
+    const taxinfo = document.getElementsByClassName("tax-info");
+    for(let info of taxinfo){
+      info.style.display = e.target.checked ? "inline" : "none";
     }
-      
+  });
 
-      
+  // Filter active toggle
+  document.querySelectorAll(".filter").forEach(f => {
+    f.addEventListener("click", () => {
+      // Remove active from all filters first (single selection)
+      document.querySelectorAll(".filter").forEach(filter => filter.classList.remove("active"));
+      // Add active to clicked filter
+      f.classList.add("active");
     });
-  </script>
-</body>
+  });
+
+  // Auto-close mobile filter menu after selection
+  document.querySelectorAll(".filter").forEach(f => {
+    f.addEventListener("click", () => {
+      if(window.innerWidth < 768) {
+        const collapse = new bootstrap.Collapse(document.getElementById("filterCollapse"), {
+          hide: true
+        });
+      }
+    });
+  });
+</script>

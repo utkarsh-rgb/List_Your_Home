@@ -227,7 +227,13 @@
         <h5 class="text-muted mb-2">Hosted by <i><%= listing.owner.username %></i></h5>
         <p class="mb-3"><%= listing.description %></p>
         <p class="fw-bold fs-4 text-danger mb-3">&#8377; <%= listing.price.toLocaleString("en-IN") %></p>
-        <p class="text-muted"><i class="fa-solid fa-location-dot me-1"></i><%= listing.location %>, <%= listing.country %></p>
+<p class="text-muted">
+  <i class="fa-solid fa-location-dot me-1"></i>
+  <a href="<%= getLocationMapLink(listing.location, listing.country) %>" target="_blank">
+    <%= listing.location %>, <%= listing.country %>
+  </a>
+</p>
+
 
         <% if(currentUser && currentUser._id.equals(listing.owner._id)) { %>
           <div class="mt-4 d-flex flex-column flex-md-row gap-2 gap-md-3">

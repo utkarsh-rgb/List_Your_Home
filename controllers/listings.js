@@ -1,5 +1,5 @@
 const Listing = require("../models/listing");
-
+const { getLocationMapLink } = require("../helper");
 
 
 module.exports.index = async (req, res) => {
@@ -58,7 +58,7 @@ module.exports.showListing= async (req, res) => {
         res.redirect("/listings");
         return;  
     }
-    res.render("listings/show.ejs", { listing });
+    res.render("listings/show.ejs", { listing, getLocationMapLink});
 };
 
 
